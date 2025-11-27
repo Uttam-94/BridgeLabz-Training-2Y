@@ -1,0 +1,17 @@
+package com.jdbcdemo.jdbc_connection;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
+import java.sql.ResultSet;
+
+public class App {
+    public static void main(String[] args) {
+    	
+    	private static final String URL  = "jdbc:mysql://localhost:3306/ankush";
+    	private static final String USER = "root";
+    	private static final String PASS = "root";
+
+        System.out.println("App is running...");
+    }
+}
