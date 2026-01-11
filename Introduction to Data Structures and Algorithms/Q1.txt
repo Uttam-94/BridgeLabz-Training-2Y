@@ -1,0 +1,144 @@
+Problem 1: Algorithm Properties and Correctness
+
+Scenario:
+A weather forecasting system needs to calculate the average temperature for a city over the past n days. Two junior developers have proposed different algorithms.
+
+--------------------------------------------------
+Algorithm A:
+1. total = 0
+2. for i = 1 to n:
+3.     total = total + temperature[i]
+4. average = total / n
+5. return average
+
+Algorithm B:
+1. sum = temperature[1]
+2. for i = 2 to n:
+3.     sum = sum + temperature[i]
+4. for i = 1 to n:
+5.     sum = sum / n
+6. return sum
+
+--------------------------------------------------
+a) Evaluation Against the Five Fundamental Properties of an Algorithm
+
+The five properties are: Input, Output, Definiteness, Finiteness, Effectiveness.
+
+Algorithm A:
+- Input: Accepts temperature array and n
+- Output: Returns the average temperature
+- Definiteness: Steps are clear and unambiguous
+- Finiteness: Loop runs n times and terminates
+- Effectiveness: Uses simple arithmetic operations
+
+Conclusion: Algorithm A satisfies all five properties.
+
+Algorithm B:
+- Input: Accepts temperature array and n
+- Output: Returns a value
+- Definiteness: Steps are clearly defined
+- Finiteness: Both loops terminate after finite steps
+- Effectiveness: Uses basic arithmetic operations
+
+Conclusion: Algorithm B also satisfies all five formal properties, even though it is logically incorrect.
+
+--------------------------------------------------
+b) Step-by-Step Execution
+
+Input:
+temperatures = [20, 25, 22, 24, 21]
+n = 5
+
+Algorithm A Execution:
+Initial total = 0
+After adding 20 → total = 20
+After adding 25 → total = 45
+After adding 22 → total = 67
+After adding 24 → total = 91
+After adding 21 → total = 112
+
+Average = 112 / 5 = 22.4
+Result: Correct output = 22.4
+
+Algorithm B Execution:
+
+First loop (sum calculation):
+Initial sum = 20
+After adding 25 → sum = 45
+After adding 22 → sum = 67
+After adding 24 → sum = 91
+After adding 21 → sum = 112
+
+Second loop (division):
+After 1st division → 112 / 5 = 22.4
+After 2nd division → 22.4 / 5 = 4.48
+After 3rd division → 4.48 / 5 = 0.896
+After 4th division → 0.896 / 5 = 0.1792
+After 5th division → 0.1792 / 5 = 0.03584
+
+Result: Incorrect output = 0.03584
+
+--------------------------------------------------
+c) Logical Error in Algorithm B
+
+Algorithm B divides the sum by n inside a loop, causing the division to occur n times instead of once.
+
+Instead of calculating:
+average = (sum of temperatures) / n
+
+It effectively calculates:
+average = (sum of temperatures) / n^n
+
+Violated Principle:
+Division is not associative. Repeated division changes the mathematical meaning of the operation.
+
+--------------------------------------------------
+d) Comparison of Algorithms
+
+Algorithm A:
+- Simple and easy to understand
+- Produces correct results
+- Efficient with one loop
+- Matches the mathematical definition of average
+
+Algorithm B:
+- Unnecessarily complex
+- Produces incorrect results
+- Uses an extra loop
+- Misapplies the division operation
+
+Conclusion:
+Algorithm A should be chosen for production deployment because it is correct, efficient, simple, and maintainable.
+
+--------------------------------------------------
+e) Test Strategy for Algorithm A
+
+Proposed Test Cases:
+
+1. Normal case
+   Input: [20, 25, 22, 24, 21], n = 5
+   Expected Output: 22.4
+
+2. Single day
+   Input: [30], n = 1
+   Expected Output: 30
+
+3. Zero days (edge case)
+   Input: [], n = 0
+   Expected Output: Error or handled exception
+
+4. Negative temperatures
+   Input: [-5, 0, 5], n = 3
+   Expected Output: 0
+
+5. All identical values
+   Input: [10, 10, 10, 10], n = 4
+   Expected Output: 10
+
+Additional validation:
+- Ensure n > 0 before division
+- Ensure n matches the number of temperature values
+- Use floating-point division for accuracy
+
+--------------------------------------------------
+End of File

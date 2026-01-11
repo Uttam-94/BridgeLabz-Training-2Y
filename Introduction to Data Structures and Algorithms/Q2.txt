@@ -1,0 +1,156 @@
+Problem 2: Time Complexity Analysis and Comparison
+
+Scenario:
+A social media platform needs to check if a username already exists in their database before allowing new user registration. Three different search algorithms have been proposed. The platform currently has 10 million users and expects to grow to 100 million users.
+
+--------------------------------------------------
+Algorithm A: Linear Search
+
+function findUsername(userList, targetUsername):
+for i = 0 to length(userList)-1:
+    if userList[i] == targetUsername:
+        return true
+return false
+
+--------------------------------------------------
+Algorithm B: Binary Search (requires sorted list)
+
+function findUsername(sortedUserList, targetUsername):
+left = 0, right = length(sortedUserList)-1
+while left ≤ right:
+    mid = (left + right) / 2
+    if sortedUserList[mid] == targetUsername:
+        return true
+    else if sortedUserList[mid] < targetUsername:
+        left = mid + 1
+    else:
+        right = mid - 1
+return false
+
+--------------------------------------------------
+Algorithm C: Hash Table Lookup
+
+function findUsername(hashTable, targetUsername):
+return hashTable.contains(targetUsername)
+
+--------------------------------------------------
+a) Worst-Case Number of Comparisons for n = 10,000,000
+
+Algorithm A (Linear Search):
+Worst case: target not found
+Comparisons = n = 10,000,000
+
+Algorithm B (Binary Search):
+Worst case comparisons = log2(n)
+log2(10,000,000) ≈ 23.25 → 24 comparisons
+
+Algorithm C (Hash Table):
+Worst case (ideal hashing): 1 comparison
+Worst case (collision-heavy): n (theoretical)
+Assuming ideal hashing: 1 comparison
+
+--------------------------------------------------
+b) Big-O Time Complexity
+
+Algorithm A:
+O(n)
+Justification: The algorithm checks each element sequentially.
+
+Algorithm B:
+O(log n)
+Justification: The search space is halved at every step.
+
+Algorithm C:
+O(1) average case
+Justification: Hashing allows direct access to elements.
+
+--------------------------------------------------
+c) Comparison Table of Operations
+
+n = 100
+Linear Search: 100
+Binary Search: 7
+Hash Table: 1
+
+n = 1,000
+Linear Search: 1,000
+Binary Search: 10
+Hash Table: 1
+
+n = 10,000
+Linear Search: 10,000
+Binary Search: 14
+Hash Table: 1
+
+n = 100,000
+Linear Search: 100,000
+Binary Search: 17
+Hash Table: 1
+
+n = 1,000,000
+Linear Search: 1,000,000
+Binary Search: 20
+Hash Table: 1
+
+n = 10,000,000
+Linear Search: 10,000,000
+Binary Search: 24
+Hash Table: 1
+
+Observed Patterns:
+- Linear search grows proportionally with n.
+- Binary search grows very slowly as n increases.
+- Hash table lookup remains constant.
+
+--------------------------------------------------
+d) Performance Under Peak Load
+
+Given:
+50,000 searches per second
+1 comparison = 1 nanosecond
+
+Algorithm A:
+10,000,000 comparisons per search
+Time per search = 10,000,000 ns = 0.01 s
+Total time per second = 50,000 × 0.01 = 500 seconds
+Result: Not feasible
+
+Algorithm B:
+24 comparisons per search
+Time per search = 24 ns
+Total time per second = 50,000 × 24 ns = 1,200,000 ns = 0.0012 seconds
+Result: Feasible
+
+Algorithm C:
+1 comparison per search
+Time per search = 1 ns
+Total time per second = 50,000 ns = 0.00005 seconds
+Result: Easily feasible
+
+--------------------------------------------------
+e) When Is Sorting Worthwhile?
+
+Sorting cost = O(n log n)
+Linear search cost per query = O(n)
+Binary search cost per query = O(log n)
+
+Let k = number of searches
+
+Total cost using linear search:
+k × n
+
+Total cost using sort + binary search:
+n log n + k log n
+
+Binary search is worthwhile when:
+n log n + k log n < k n
+
+Solving for k:
+k > (n log n) / (n − log n)
+
+This means:
+- Sorting is worthwhile when the number of searches is large.
+- For systems with frequent searches and rare updates, binary search is preferable.
+
+--------------------------------------------------
+End of File

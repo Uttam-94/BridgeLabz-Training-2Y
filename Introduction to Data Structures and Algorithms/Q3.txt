@@ -1,0 +1,128 @@
+Problem 3: Space Complexity and Space-Time Tradeoffs
+
+Scenario:
+An e-learning platform needs to check if a student has completed all prerequisite courses before allowing enrollment in an advanced course. Two implementations are proposed.
+
+--------------------------------------------------
+Implementation A: Nested Loop (Space-Efficient)
+
+function hasCompletedAllPrerequisites(completedCourses, prerequisites):
+for i = 0 to m-1:
+    found = false
+    for j = 0 to n-1:
+        if prerequisites[i] == completedCourses[j]:
+            found = true
+            break
+    if not found:
+        return false
+return true
+
+--------------------------------------------------
+Implementation B: Hash Set (Time-Efficient)
+
+function hasCompletedAllPrerequisites(completedCourses, prerequisites):
+completedSet = new HashSet()
+for i = 0 to n-1:
+    completedSet.add(completedCourses[i])
+for i = 0 to m-1:
+    if not completedSet.contains(prerequisites[i]):
+        return false
+return true
+
+--------------------------------------------------
+a) Time Complexity Analysis
+
+Implementation A:
+- Outer loop runs m times
+- Inner loop runs up to n times in the worst case
+Worst-case time complexity:
+O(m × n)
+
+Implementation B:
+- Building hash set takes O(n)
+- Checking prerequisites takes O(m)
+Total time complexity:
+O(n + m)
+
+--------------------------------------------------
+b) Space Complexity Analysis (Auxiliary Space)
+
+Implementation A:
+- Uses only a few variables
+Space complexity:
+O(1)
+
+Implementation B:
+- Hash set stores n completed courses
+Space complexity:
+O(n)
+
+--------------------------------------------------
+c) Daily Cost Calculations
+
+Given:
+n = 40 completed courses
+m = 5 prerequisites
+100,000 students per day
+
+Implementation A:
+Worst-case comparisons per student:
+m × n = 5 × 40 = 200
+
+Total comparisons per day:
+100,000 × 200 = 20,000,000 comparisons
+
+Implementation B:
+Hash set size per student:
+n = 40 entries
+
+Memory per student:
+40 × 8 bytes = 320 bytes
+
+Total memory usage per day:
+100,000 × 320 bytes = 32,000,000 bytes ≈ 32 MB
+
+--------------------------------------------------
+d) Constraint-Based Decision
+
+Constraints:
+- Response time < 10 ms
+- Memory < 1 GB for 10,000 concurrent requests
+- Each comparison = 0.1 microseconds
+
+Implementation A:
+Worst-case comparisons per request = 200
+Time per request = 200 × 0.1 µs = 20 µs = 0.02 ms
+
+Total memory usage:
+Negligible
+
+Implementation B:
+Time per request:
+Building set (40 inserts) + 5 lookups ≈ 45 operations
+Time = 45 × 0.1 µs = 4.5 µs = 0.0045 ms
+
+Memory usage for 10,000 concurrent requests:
+10,000 × 320 bytes = 3,200,000 bytes ≈ 3.2 MB
+
+Decision:
+Both implementations meet time and memory constraints.
+Implementation B is faster and still well within memory limits.
+
+--------------------------------------------------
+e) Hybrid Strategy Proposal
+
+When m is very small (1–2 prerequisites):
+- Use Implementation A (nested loop)
+- Avoid overhead of creating a hash set
+
+When m is large (20+ prerequisites):
+- Use Implementation B (hash set)
+- Significant time savings justify extra memory
+
+Switching Threshold:
+- Switch to hash set when m ≥ 10
+- At this point, m × n comparisons become noticeably more expensive than O(n + m)
+
+--------------------------------------------------
+End of File

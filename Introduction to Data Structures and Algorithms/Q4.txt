@@ -1,0 +1,154 @@
+Problem 4: Asymptotic Notation Applications
+
+Scenario:
+A data analytics company is evaluating different sorting algorithms for a big data processing pipeline. They must choose algorithms based on theoretical complexity analysis.
+
+--------------------------------------------------
+Given Algorithms and Complexities:
+
+1. Bubble Sort:
+   Best Case: O(n)
+   Average Case: O(n^2)
+   Worst Case: O(n^2)
+
+2. Merge Sort:
+   All Cases: Θ(n log n)
+
+3. Quick Sort:
+   Best Case: O(n log n)
+   Average Case: O(n log n)
+   Worst Case: O(n^2)
+
+4. Insertion Sort:
+   Best Case: O(n)
+   Average Case: O(n^2)
+   Worst Case: O(n^2)
+
+--------------------------------------------------
+a) Big-O Worst-Case Proofs
+
+Bubble Sort Worst Case:
+Worst-case time complexity: T(n) = an^2 + bn + c
+
+To prove T(n) = O(n^2):
+Choose c1 = a + b + c
+For n ≥ 1:
+an^2 + bn + c ≤ (a + b + c)n^2
+Let n0 = 1
+
+Thus, Bubble Sort worst case is O(n^2).
+
+Merge Sort Worst Case:
+T(n) = n log n
+
+To prove T(n) = O(n log n):
+Choose c = 1
+For n ≥ 1:
+n log n ≤ c · n log n
+Let n0 = 1
+
+Thus, Merge Sort is O(n log n).
+
+--------------------------------------------------
+b) Matching Data Types to Algorithms
+
+Type A: Nearly Sorted Data (90% sorted)
+Best Choice: Insertion Sort
+Justification:
+Insertion Sort runs in O(n) best case when data is nearly sorted.
+
+Type B: Random Data
+Best Choice: Merge Sort or Quick Sort
+Justification:
+Both run in O(n log n) average case.
+Merge Sort provides guaranteed Θ(n log n).
+
+Type C: Reverse Sorted Data
+Best Choice: Merge Sort
+Justification:
+Bubble Sort, Insertion Sort, and Quick Sort degrade to O(n^2).
+Merge Sort remains Θ(n log n).
+
+--------------------------------------------------
+c) Θ(n log n) vs O(n log n)
+
+Merge Sort is Θ(n log n) because:
+- Best, average, and worst cases all grow at n log n.
+
+Quick Sort is O(n log n) on average because:
+- Worst case grows to O(n^2).
+- O(n log n) only provides an upper bound for average behavior.
+
+Difference:
+Θ gives a tight bound.
+O gives only an upper bound.
+
+--------------------------------------------------
+d) Decision Tree for Algorithm Selection
+
+Data Size: Small (n < 50)
+- Sorted or nearly sorted: Insertion Sort
+- Random or reverse: Insertion Sort (low overhead dominates)
+
+Data Size: Medium (50 ≤ n < 10,000)
+- Sorted or nearly sorted: Insertion Sort
+- Random: Quick Sort
+- Reverse: Merge Sort
+
+Data Size: Large (n ≥ 10,000)
+- Any data type: Merge Sort
+Justification:
+Θ(n log n) ensures predictable performance at scale.
+
+--------------------------------------------------
+e) Mystery Sort vs Merge Sort
+
+Mystery Sort:
+T1(n) = 5n^2 + 100n + 1000
+
+Merge Sort:
+T2(n) = 10n log2 n
+
+We want:
+5n^2 + 100n + 1000 < 10n log2 n
+
+For large n:
+5n^2 dominates
+n^2 grows faster than n log n
+
+Thus:
+Mystery Sort is only faster for very small n (approximately n < 20).
+For larger n, Merge Sort is asymptotically faster.
+
+Graphical Explanation (Conceptual):
+- The n^2 curve grows much faster than n log n.
+- The curves intersect at small n, after which Merge Sort is always faster.
+
+--------------------------------------------------
+Summary and Key Takeaways
+
+Data Structures:
+Provide organized ways to store and access data efficiently. Choice impacts performance, memory usage, and maintainability.
+
+Algorithms:
+Step-by-step procedures that must satisfy input, output, definiteness, finiteness, and effectiveness.
+
+Time Complexity:
+Describes how runtime grows with input size. Helps compare algorithms for large datasets.
+
+Space Complexity:
+Measures memory usage. Space-time tradeoffs are often necessary.
+
+Asymptotic Notations:
+- Big-O: upper bound (worst case)
+- Big-Omega: lower bound (best case)
+- Big-Theta: tight bound
+
+Practical Application:
+Real-world engineering balances theory with constraints such as memory, speed, and maintainability.
+
+Foundation:
+These concepts underpin advanced fields like databases, operating systems, AI, ML, networking, and distributed systems.
+
+--------------------------------------------------
+End of File
