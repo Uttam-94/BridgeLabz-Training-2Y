@@ -1,0 +1,16 @@
+package level1;
+
+import java.util.Scanner;
+
+public class Q5 {
+     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int num = sc.nextInt();
+
+        for (int i = 6; i <= 9; i++) {
+            System.out.println(num + " x " + i + " = " + (num * i));
+        }
+
+        sc.close();
+    }
+}
